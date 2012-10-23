@@ -1,0 +1,18 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="WrapTorrClient.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="ServerMAC" Type="System.String" Scope="User">
+      <Value Profile="(Default)">00252236071E</Value>
+    </Setting>
+    <Setting Name="ServerDNSName" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="uTorrentLocation" Type="System.String" Scope="User">
+      <Value Profile="(Default)">c:\Program Files\uTorrent\uTorrent.exe</Value>
+    </Setting>
+    <Setting Name="DownloadsPath" Type="System.String" Scope="User">
+      <Value Profile="(Default)">e:\Downloads\</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

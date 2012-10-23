@@ -1,0 +1,122 @@
+void network::save()
+{
+	XmlDocument ^ db = gcnew XmlDocument();
+	db->LoadXml("<root></root>");
+	
+	XmlNode ^ netnode = db->CreateElement("Network");
+	XmlNode ^ setnode = db->CreateElement("Settings");
+	netnode->AppendChild(setnode);
+	
+	XmlNode ^ setnode4 = db->CreateElement("NumOfOutNeurons");
+	setnode4->InnerText = numout.ToString();
+	setnode->AppendChild(setnode4);
+
+	if(dl)
+	{
+		XmlNode ^ setnode1 = db->CreateElement("NumOfLayers");
+		setnode1->InnerText = "2";
+		XmlNode ^ setnode2 = db->CreateElement("NumOfNeurons1");
+		setnode2->InnerText = dim.ToString();
+		XmlNode ^ setnode3 = db->CreateElement("NumOfNeurons2");
+		setnode3->InnerText = dim.ToString();
+	
+		setnode->AppendChild(setnode1);
+		setnode->AppendChild(setnode2);
+		setnode->AppendChild(setnode3);
+
+		XmlNode ^ laynode = db->CreateElement("Layers");
+		netnode->AppendChild(laynode);
+		XmlNode ^ laynode1 = db->CreateElement("Layer1");
+		laynode->AppendChild(laynode1);
+		XmlNode ^ laynode2 = db->CreateElement("Layer2");
+		laynode->AppendChild(laynode2);
+
+		for(int i=0;i<dim;i++)
+		{
+			XmlNode ^ neuronnode = db->CreateElement("Neuron");
+			laynode1->AppendChild(neuronnode);
+			XmlNode ^ neuronnumber = db->CreateElement("Number");
+			neuronnumber->InnerText = i.ToString();
+			neuronnode->AppendChild(neuronnumber);
+			XmlNode ^ neuronweights = db->CreateElement("Weights");
+			neuronnode->AppendChild(neuronweights);
+			for(int j=0;j<dim;j++)
+			{
+				XmlNode ^ weightnode = db->CreateElement("Weight");
+				neuronweights->AppendChild(weightnode);
+				XmlNode ^ weightnumber = db->CreateElement("ToNeuron");
+				weightnumber->InnerText = j.ToString();
+				weightnode->AppendChild(weightnumber);
+				XmlNode ^ weightvalue = db->CreateElement("Value");
+				weightvalue->InnerText = x[i].w[j].ToString();
+				weightnode->AppendChild(weightvalue);
+			}
+		}
+
+		for(int i=0;i<dim;i++)
+		{
+			XmlNode ^ neuronnode = db->CreateElement("Neuron");
+			laynode1->AppendChild(neuronnode);
+			XmlNode ^ neuronnumber = db->CreateElement("Number");
+			neuronnumber->InnerText = i.ToString();
+			neuronnode->AppendChild(neuronnumber);
+			XmlNode ^ neuronweights = db->CreateElement("Weights");
+			neuronnode->AppendChild(neuronweights);
+			for(int j=0;j<dim;j++)
+			{
+				XmlNode ^ weightnode = db->CreateElement("Weight");
+				neuronweights->AppendChild(weightnode);
+				XmlNode ^ weightnumber = db->CreateElement("ToNeuron");
+				weightnumber->InnerText = j.ToString();
+				weightnode->AppendChild(weightnumber);
+				XmlNode ^ weightvalue = db->CreateElement("Value");
+				weightvalue->InnerText = nr[i].w[j].ToString();
+				weightnode->AppendChild(weightvalue);
+			}
+		}
+	}
+	else
+	{
+		XmlNode ^ setnode1 = db->CreateElement("NumOfLayers");
+		setnode1->InnerText = "1";
+		XmlNode ^ setnode2 = db->CreateElement("NumOfNeurons1");
+		setnode2->InnerText = dim.ToString();		
+	
+		setnode->AppendChild(setnode1);
+		setnode->AppendChild(setnode2);
+	
+		XmlNode ^ laynode = db->CreateElement("Layers");
+		netnode->AppendChild(laynode);
+		XmlNode ^ laynode1 = db->CreateElement("Layer1");
+		laynode->AppendChild(laynode1);
+
+		for(int i=0;i<dim;i++)
+		{
+			XmlNode ^ neuronnode = db->CreateElement("Neuron");
+			laynode1->AppendChild(neuronnode);
+			XmlNode ^ neuronnumber = db->CreateElement("Number");
+			neuronnumber->InnerText = i.ToString();
+			neuronnode->AppendChild(neuronnumber);
+			XmlNode ^ neuronweights = db->CreateElement("Weights");
+			neuronnode->AppendChild(neuronweights);
+			for(int j=0;j<numout;j++)
+			{
+				XmlNode ^ weightnode = db->CreateElement("Weight");
+				neuronweights->AppendChild(weightnode);
+				XmlNode ^ weightnumber = db->CreateElement("ToNeuron");
+				weightnumber->InnerText = j.ToString();
+				weightnode->AppendChild(weightnumber);
+				XmlNode ^ weightvalue = db->CreateElement("Value");
+				weightvalue->InnerText = x[i].w[j].ToString();
+				weightnode->AppendChild(weightvalue);
+			}
+		}
+	}
+	db->DocumentElement->AppendChild(netnode);
+
+	//XmlNode ^ Node = db->CreateElement("user");	
+	//Node->AppendChild(loginNode);	
+	//db->GetElementsByTagName("data")[0]->AppendChild(Node);
+	
+	db->Save("db.xml");
+}

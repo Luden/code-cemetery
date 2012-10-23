@@ -1,0 +1,1 @@
+route print|find /C "0.0.0.0"
